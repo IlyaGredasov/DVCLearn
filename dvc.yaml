@@ -1,0 +1,27 @@
+stages:
+  make_dataset:
+    cmd: uv run -m src.make_dataset
+    deps:
+    - src/make_dataset.py
+    params:
+    - dataset
+    outs:
+    - data/raw/dataset.npz
+  train:
+    cmd: uv run -m src.train
+    deps:
+    - data/raw/dataset.npz
+    - src/train.py
+    params:
+    - train
+    outs:
+    - models/model.pt
+  evaluate:
+    cmd: uv run -m src.evaluate
+    deps:
+    - data/raw/dataset.npz
+    - models/model.pt
+    - src/evaluate.py
+    metrics:
+    - reports/metrics.json:
+        cache: false

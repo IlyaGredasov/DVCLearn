@@ -1,0 +1,68 @@
+schema: '2.0'
+stages:
+  make_dataset:
+    cmd: uv run -m src.make_dataset
+    deps:
+    - path: src/make_dataset.py
+      hash: md5
+      md5: 3a5ce796c45e86ee7c26537ca5a561f9
+      size: 1161
+    params:
+      params.yaml:
+        dataset:
+          n_samples: 10000
+          n_features: 20
+          n_informative: 12
+          n_redundant: 4
+          n_classes: 2
+          random_state: 42
+          test_size: 0.2
+    outs:
+    - path: data/raw/dataset.npz
+      hash: md5
+      md5: 187f2f104108b0eb41bf1ccee5eb2042
+      size: 881002
+  train:
+    cmd: uv run -m src.train
+    deps:
+    - path: data/raw/dataset.npz
+      hash: md5
+      md5: 187f2f104108b0eb41bf1ccee5eb2042
+      size: 881002
+    - path: src/train.py
+      hash: md5
+      md5: c93933c08c0a602a4992c24703e68437
+      size: 1932
+    params:
+      params.yaml:
+        train:
+          hidden_dim: 64
+          batch_size: 128
+          epochs: 20
+          learning_rate: 0.001
+          random_state: 42
+    outs:
+    - path: models/model.pt
+      hash: md5
+      md5: 131bbea1a13b2e5ffdb49d6329330230
+      size: 8265
+  evaluate:
+    cmd: uv run -m src.evaluate
+    deps:
+    - path: data/raw/dataset.npz
+      hash: md5
+      md5: 187f2f104108b0eb41bf1ccee5eb2042
+      size: 881002
+    - path: models/model.pt
+      hash: md5
+      md5: 131bbea1a13b2e5ffdb49d6329330230
+      size: 8265
+    - path: src/evaluate.py
+      hash: md5
+      md5: 6680124eb5dcf357d8c20e0b5df3ec17
+      size: 1293
+    outs:
+    - path: reports/metrics.json
+      hash: md5
+      md5: da54b8c1345866feb191328ba92e59cc
+      size: 110
