@@ -1,0 +1,5 @@
+outs:
+- md5: 187f2f104108b0eb41bf1ccee5eb2042
+  size: 881002
+  hash: md5
+  path: dataset.npz

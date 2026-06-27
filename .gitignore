@@ -1,5 +1,10 @@
 __pycache__/
 .venv/
-data/
+
+data/**/*.csv
+data/**/*.npz
+data/**/*.parquet
+data/**/*.pkl
+
 models/
 reports/
