@@ -7,4 +7,5 @@ data/**/*.parquet
 data/**/*.pkl
 
 models/
-reports/
+reports/*
+!reports/metrics.json
