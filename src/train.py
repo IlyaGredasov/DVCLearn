@@ -2,8 +2,8 @@ from pathlib import Path
 
 import numpy as np
 import torch
-import torch.nn as nn
 import yaml
+from torch import nn
 from torch.utils.data import DataLoader, TensorDataset
 
 from src.model import DVCClassifier
